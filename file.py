@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
 # Load the dataset
@@ -15,6 +16,11 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=
 model = DecisionTreeClassifier(criterion='gini')
 model.fit(X_train, y_train)
 
+# Predict on test set and calculate accuracy
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy of the Decision Tree model: {accuracy:.2f}")
+
 def make_prediction(input_data):
     input_df = pd.DataFrame([input_data])
     prediction = model.predict(input_df)
@@ -22,6 +28,6 @@ def make_prediction(input_data):
 
 # Plot the decision tree
 plt.figure(figsize=(20,10))  # Set the size of the figure
+plt.title(f"Decision Tree for Parkinson's Disease Prediction\nAccuracy: {accuracy:.2f}")
 plot_tree(model, filled=True, feature_names=features.columns, class_names=['Healthy', 'Parkinson'])
-plt.title("Decision Tree for Parkinson's Disease Prediction")
 plt.show()
