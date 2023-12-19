@@ -16,18 +16,22 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=
 model = DecisionTreeClassifier(criterion='gini')
 model.fit(X_train, y_train)
 
-# Predict on test set and calculate accuracy
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-accuracy_percent = accuracy * 100  # Convert to percentage
-
 def make_prediction(input_data):
     input_df = pd.DataFrame([input_data])
     prediction = model.predict(input_df)
     return prediction[0]
 
-# Plot the decision tree
-plt.figure(figsize=(20,15))  # Adjust the figure size if necessary
-plot_tree(model, filled=True, feature_names=features.columns, class_names=['Healthy', 'Parkinson'])
-plt.title(f"Decision Tree for Parkinson's Disease Prediction\nAccuracy: {accuracy_percent:.2f}%", fontsize=16)
-plt.show()
+def plot_decision_tree():
+    # Predict on test set and calculate accuracy
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    accuracy_percent = accuracy * 100  # Convert to percentage
+
+    # Plot the decision tree
+    plt.figure(figsize=(20,15))  # Adjust the figure size if necessary
+    plot_tree(model, filled=True, feature_names=features.columns, class_names=['Healthy', 'Parkinson'])
+    plt.title(f"Decision Tree for Parkinson's Disease Prediction\nAccuracy: {accuracy_percent:.2f}%", fontsize=16)
+    plt.show()
+
+if __name__ == "__main__":
+    plot_decision_tree()
