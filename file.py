@@ -10,7 +10,7 @@ features = data.drop(['name', 'status'], axis=1)
 labels = data['status']
 
 # Split the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2,random_state=42)
 
 # Create a Decision Tree model using the Gini index
 model = DecisionTreeClassifier(criterion='gini')
